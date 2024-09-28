@@ -1,26 +1,286 @@
-<nav class=" sticky-top navbar navbar-expand-md bg-body-light border-bottom">
+<!-- Navbar Section -->
+ 
+<style>
+    /* Styling for the All Categories Dropdown */
+    .category-section1 {
+      width: 100%;
+      
+    }
+    
+  
+    .collapse {
+      display: none;
+    }
+  
+    .collapse.show {
+      display: block;
+    }
+  
+    /* Optional: Add some padding and background to the dropdown content */
+    #allCategoriesDropdown {
+      background-color: #f8f9fa;
+      z-index: 1000; 
+      position: relative;
+      z-index: 1000; 
+      padding: 20px;
+      
+    }
+    #allCategoriesDropdown.show {
+  display: block;
+}
+  
+    /* Adjustments for the category list */
+    #allCategoriesDropdown ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+  
+    #allCategoriesDropdown ul li {
+      margin-bottom: 5px;
+    }
+    .profile-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+/* Default Profile Icon */
+.profile-icon {
+  font-size: 50px;
+  color: #6c757d;
+}
+.profile-img {
+    border-radius: 50%;
+    margin-bottom: .5rem;
+  }
+  
+
+  </style>
+<nav class="sticky-top navbar navbar-expand-md bg-dark border-bottom custom-navbar1">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand text-light" href="/listings">
+        <i class="fa-solid fa-dumpster-fire fa-compass"></i>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup1" aria-controls="navbarNavAltMarkup1" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link " aria-current="page" href="/listings">Home</a>
-          <a class="nav-link" href="/listings">All Listings</a>
-          <a class="nav-link" href="/listings/new">Add New Listings</a>
-         
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup1">
+        <div class="navbar-nav me-auto">
+          <a class="nav-link text-light ms-3" aria-current="page" href="/listings">Home</a>
+          <a class="nav-link text-light ms-3" href="/listings">All Listings</a>
+          <a class="nav-link custom-button1 ms-3" href="/listings/new">+ SELL</a>
         </div>
         <div class="navbar-nav ms-auto">
           <% if (!currUser) { %>
-            <a class="nav-link" aria-current="page" href="/login">Login</a>
-            <a class="nav-link" href="/signup">Sign Up</a>
+            <a class="nav-link custom-login-btn1 mx-3" aria-current="page" href="/login">Login</a>
+            <a class="nav-link custom-signup-btn1" href="/signup">Sign Up</a>
           <% } else { %>
-            <a class="nav-link" href="/profile">Hi, <%= currUser.username %></a>
-            <a class="nav-link" href="/logout">Logout</a>
+            
+            <a class="nav-link custom-button1 me-5" href="/listings/<%= currUser._id %>/youritems">Your Items</a>
+           </div>
+           <div class="div">
+            <a class="nav-link text-light me-2" href="/listings/<%= currUser._id %>/profile"> <% if (currUser.image) { %>
+              <img src="<%= currUser.image.url %>" alt="Profile Image" class="profile-img rounded-circle me-2">
+            <% } else { %>
+              <i class="fas fa-user-circle fa-3x me-2"></i>
+            <% } %>
+             <%= currUser.username %></a>
+            </div>
+            <a class="nav-link text-light ms-3 me-2" href="/logout">Logout</a>
           <% } %>
         </div>
-        
       </div>
     </div>
   </nav>
+  
+  <!-- Category Section Below Navbar -->
+  <section class="category-section1 bg-white pt-3 ">
+    <div class="container-fluid">
+      <div class="row text-center">
+                <!-- All Categories Button -->
+                <div class="col-6 col-md-1 nav-link custom-button1 p-0 ms-3" style="border: 0; font-size: 15px; height: 45px;" >
+                    <button class="btn " style="border: 0; font-size: 12px; height: 10px; font-weight: 700 px-2;" id="allCategoriesButton">All Categories <i class="fas fa-chevron-down"></i></button>
+                  </div>
+        <!-- Individual Categories -->
+        <div class="col-2 col-md-1 p-2 "  data-categary="Car" style="cursor: pointer;">
+            <a href="/listings/category/Car" class="text-decoration-none">
+                <i class="fas fa-car"></i>
+                <p>Car</p>
+              </a>
+        </div>
+        <div class="col-2 col-md-1 p-2 "  data-categary="Fashion" style="cursor: pointer;">
+            <a href="/listings/category/Laptop" class="text-decoration-none">
+                <i class="fas fa-laptop "></i>
+                <p>Laptops</p>
+              </a>
+        </div>
+        <div class="col-2 col-md-1 p-2 "  data-categary="Fashion" style="cursor: pointer;">
+            <a href="/listings/category/Fashion" class="text-decoration-none">
+                <i class="fas fa-shirt "></i>
+                <p>Fashion</p>
+              </a>
+        </div>
+        <div class="col-2 col-md-1 p-2 "  data-categary="Fashion" style="cursor: pointer;">
+            <a href="/listings/category/AC" class="text-decoration-none">
+                <i class="fas fa-fan "></i>
+            <p>AC</p>
+              </a>
+        </div>
+        <div class="col-2 col-md-1 p-2 "  data-categary="Fashion" style="cursor: pointer;">
+            <a href="/listings/category/TV" class="text-decoration-none">
+                <i class="fas fa-tv "></i>
+                <p>TV</p>
+              </a>
+        </div>
+        <div class="col-2 col-md-1 p-2 "  data-categary="Fashion" style="cursor: pointer;">
+            <a href="/listings/category/Furniture" class="text-decoration-none">
+                <i class="fas fa-bed "></i>
+            <p>Furniture</p>
+              </a>
+        </div>
+        <div class="col-2 col-md-1 p-2 "  data-categary="Fashion" style="cursor: pointer;">
+            <a href="/listings/category/Bike" class="text-decoration-none">
+                <i class="fas fa-motorcycle "></i>
+                <p>Bike</p>
+              </a>
+        </div>
+        <div class="col-2 col-md-1 p-2 "  data-categary="Phone" style="cursor: pointer;">
+            <a href="/listings/category/Phone" class="text-decoration-none">
+                <i class="fas fa-mobile-alt "></i>
+            <p>Phone</p>
+              </a>
+        </div>
+        <div class="col-2 col-md-1 p-2 "  data-categary="Book" style="cursor: pointer;">
+          <a href="/listings/category/Book" class="text-decoration-none">
+              <i class="fas fa-book "></i>
+          <p>Book</p>
+            </a>
+      </div>
+      <div class="col-2 col-md-1 p-2 "  data-categary="Fitness" style="cursor: pointer;">
+        <a href="/listings/category/Fitness" class="text-decoration-none">
+          <i class="fas fa-dumbbell"></i>
+
+        <p>Fitness</p>
+          </a>
+    </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- All Categories Dropdown Menu -->
+  <div class="collapse " id="allCategoriesDropdown">
+    <div class="bg-light p-4 z-1">
+      <div class="container ">
+        <div class="row">
+          <!-- Column 1 -->
+          <div class="col-md-3">
+            <h4><b>Cars</b></h4>
+            <ul>
+              <li>Cars</li>
+            </ul>
+            <h4 class="mt-3"><b>Mobiles</b></h4>
+            <ul>
+              <li>Mobile Phones</li>
+              <li>Accessories</li>
+              <li>Tablets</li>
+            </ul>
+            <h6 class="mt-3"><b>Commercial Vehicles & Spares</b></h6>
+            <ul>
+              <li>Commercial & Other Vehicles</li>
+              <li>Spare Parts</li>
+            </ul>
+          </div>
+  
+          <!-- Column 2 -->
+          <div class="col-md-3">
+            <h4><b>Bikes</b></h4>
+            <ul>
+              <li>Motorcycles</li>
+              <li>Scooters</li>
+              <li>Spare Parts</li>
+              <li>Bicycles</li>
+            </ul>
+          
+          <h5 class="mt-5"><b>Books, Sports</b> </h5>
+          <ul>
+            <li>Books</li>
+            <li>Gym & Fitness</li>
+            <li>Musical Instruments</li>
+            <li>Sports Equipment</li>
+          </ul>
+        </div>
+          <!-- Column 3 -->
+          <div class="col-md-3">
+            <h4><b>Electronics & Appliances</b></h4>
+              <ul>
+              <li>TVs, Video - Audio</li>
+              <li>Kitchen & Other Appliances</li>
+              <li>Computers & Laptops</li>
+              <li>Cameras & Lenses</li>
+              <li>Games & Entertainment</li>
+              <li>Fridges</li>
+              <li>Computer Accessories</li>
+              <li>Hard Disks, Printers & Monitors</li>
+              <li>ACs</li>
+              <li>Washing Machines</li>
+            </ul>
+
+          </div>
+  
+          <!-- Column 4 -->
+          <div class="col-md-3">
+            <h4><b>Furniture</b></h4>
+            <ul>
+              <li>Sofa & Dining</li>
+              <li>Beds & Wardrobes</li>
+              <li>Home Decor & Garden</li>
+              <li>Kids Furniture</li>
+              <li>Other Household Items</li>
+            </ul>
+            <h6 class="mt-3"><b>Fashion</b></h6>
+            <ul>
+              <li>Men</li>
+              <li>Women</li>
+              <li>Kids</li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- JavaScript for Toggling -->
+  <script>
+    document.getElementById('allCategoriesButton').addEventListener('click', function() {
+      var dropdown = document.getElementById('allCategoriesDropdown');
+      dropdown.classList.toggle('show');
+      var icon = this.querySelector('i');
+    icon.classList.toggle('fa-chevron-down');
+    icon.classList.toggle('fa-chevron-up');
+    });
+  </script>
+  <script>
+
+</script>
+  
+  <script>
+  document.querySelectorAll('.category-item').forEach(function(item) {
+    item.addEventListener('click', function() {
+      var category = this.getAttribute('data-category');
+      var dropdown = document.getElementById('dropdown-' + category);
+      
+      // Hide all dropdowns
+      document.querySelectorAll('.category-dropdown').forEach(function(dropdown) {
+        dropdown.style.display = 'none';
+      });
+      
+      // Toggle the clicked dropdown
+      if (dropdown.style.display === 'block') {
+        dropdown.style.display = 'none';
+      } else {
+        dropdown.style.display = 'block';
+      }
+    });
+  });
+</script>
