@@ -113,6 +113,6 @@ app.use((err,req,res,next)=>{
   res.status(statuscode).render("error.ejs",{message});
 });
 
-app.listen(8081, () => {
+app.listen(8081,'0.0.0.0', () => {
   console.log("server is listening to port 8081");
 });
